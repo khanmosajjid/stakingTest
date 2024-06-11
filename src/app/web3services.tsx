@@ -13,8 +13,8 @@ import { config } from "../wagmi";
 // import FactoryABI from "../constants/factoryABI.json";
 // import RouterABI from "../constants/routerABI.json";
 import { ethers } from "ethers";
-export const STAKING_CONTRACT = "0x9D9Bf02ac114725a6845Df21bbA424F3A02a2f9F";
-export const TOKEN_CONTRACT = "0x3b7a199a0E190f85a8DC4c731eE9d312310d9b0f";
+export const STAKING_CONTRACT = "0xf68C25f91B3311a6902E82A81BBeA50E3Ac92b6f";
+export const TOKEN_CONTRACT = "0x9d4c36760e30B3985ab43a4fFcD66c8EA1f30542";
 
 
 export const convertToEther = (amount: unknown) => {
@@ -407,7 +407,7 @@ export const stakeToken = async (
       abi: stakingABI,
       address: STAKING_CONTRACT,
       functionName: "stake",
-      args: [amount*1e6],
+      args: [amount*1e18],
     });
 
     console.log("data of invest pool is ------>", data);

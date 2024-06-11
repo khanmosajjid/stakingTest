@@ -75,14 +75,14 @@ function App() {
       <p>User Staked Amount:</p>
       {stakedAmount}
 
-      {reward > 0 ? (
+      {/* {reward > 0 ? (
         <>
           <p>Reward Generated</p>
           <p>{reward} Token</p>
         </>
       ) : (
         ""
-      )}
+      )} */}
     </>
   );
 }

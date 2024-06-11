@@ -1,9 +1,9 @@
 import { http, createConfig } from 'wagmi'
-import {avalancheFuji } from 'wagmi/chains'
+import {avalancheFuji,avalanche } from 'wagmi/chains'
 import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors'
 
 export const config = createConfig({
-  chains: [ avalancheFuji],
+  chains: [avalanche],
   connectors: [
     injected(),
     coinbaseWallet({ appName: 'Create Wagmi' }),
@@ -11,7 +11,7 @@ export const config = createConfig({
   ],
   ssr: true,
   transports: {
-    [avalancheFuji.id]: http(),
+    [avalanche.id]: http(),
     
   },
 })
