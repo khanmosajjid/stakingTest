@@ -4,9 +4,8 @@ import {
   waitForTransactionReceipt,
 } from "@wagmi/core";
 
-
 import stakingABI from "./stakingAbi.json";
-import tokenAbi from "./tokenAbi.json"
+import tokenAbi from "./tokenAbi.json";
 import { config } from "../wagmi";
 // import { BigNumber } from "bignumber.js";
 // import PairABI from "../constants/pairABI.json";
@@ -15,7 +14,6 @@ import { config } from "../wagmi";
 import { ethers } from "ethers";
 export const STAKING_CONTRACT = "0xf68C25f91B3311a6902E82A81BBeA50E3Ac92b6f";
 export const TOKEN_CONTRACT = "0x9d4c36760e30B3985ab43a4fFcD66c8EA1f30542";
-
 
 export const convertToEther = (amount: unknown) => {
   try {
@@ -33,14 +31,12 @@ export const convertToEther = (amount: unknown) => {
   }
 };
 
-      {
-        /* 0x1379B6e533bf36337C562fDA72542A133739999B test token*/
-      }
-      {
-        /* 0xA7B22CABA131889f9eA08D1bE18a15E3F1579f2D staking token */
-      }
-
-
+{
+  /* 0x1379B6e533bf36337C562fDA72542A133739999B test token*/
+}
+{
+  /* 0xA7B22CABA131889f9eA08D1bE18a15E3F1579f2D staking token */
+}
 
 export const convertToWei = (amount: any) => {
   try {
@@ -160,14 +156,13 @@ export const checkAllowance = async (
       functionName: "allowance",
       args: [account, spenderContract],
     });
-    console.log("data is---->>",data);
+    console.log("data is---->>", data);
 
     return convertToEther(data);
   } catch (e) {
     console.log("error is----->", e);
   }
 };
-
 
 // export const isWhitelist = async (account: any) => {
 //   try {
@@ -374,12 +369,8 @@ export const checkAllowance = async (
 //   }
 // };
 
-export const stakeToken = async (
-  account: any,
-  amount: any
-) => {
+export const stakeToken = async (account: any, amount: any) => {
   try {
-    
     let allowance: any = await checkAllowance(
       account,
       STAKING_CONTRACT,
@@ -407,7 +398,7 @@ export const stakeToken = async (
       abi: stakingABI,
       address: STAKING_CONTRACT,
       functionName: "stake",
-      args: [amount*1e18],
+      args: [amount * 1e18],
     });
 
     console.log("data of invest pool is ------>", data);
@@ -415,7 +406,6 @@ export const stakeToken = async (
       hash: data,
     });
 
-    
     console.log("res", res);
     if (res.status == "success") {
       alert("Invested  Successfully");
@@ -439,16 +429,34 @@ export const stakeToken = async (
   }
 };
 
-export const unstakeToken = async()=>{
-    try{
+export const unstakeToken = async () => {
+  try {
+    const data: any = await writeContract(config, {
+      abi: stakingABI,
+      address: STAKING_CONTRACT,
+      functionName: "unstake",
+      args: [],
+    });
 
-    }
-    catch(err){
-            console.log("err",err)
-    }
-}
+    console.log("data of invest pool is ------>", data);
+    const res: any = await waitForTransactionReceipt(config, {
+      hash: data,
+    });
+  } catch (e:any) {
+    console.log("here is errror is----->", e);
+    const extractedError = e.message
+      ? e.message.split(":")[1]
+      : "Invalid error message";
 
-export const getUserStakesDetails = async (address:any) => {
+    console.log(extractedError);
+    const detailsIndex = e?.message.indexOf("Details:");
+    const detailsPart = e?.message.substring(detailsIndex);
+    console.log("details part is--->>", detailsPart);
+    alert(extractedError);
+  }
+};
+
+export const getUserStakesDetails = async (address: any) => {
   try {
     const data: any = await readContract(config, {
       abi: stakingABI,

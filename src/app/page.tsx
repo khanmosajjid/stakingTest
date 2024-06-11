@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { stakeToken,getReward,getUserStakesDetails,STAKING_CONTRACT,TOKEN_CONTRACT} from "./web3services";
+import { stakeToken,getReward,getUserStakesDetails,STAKING_CONTRACT,TOKEN_CONTRACT,unstakeToken} from "./web3services";
 // import { create } from "kubo-rpc-client";
 function App() {
   const account = useAccount();
@@ -66,6 +66,15 @@ function App() {
               }}
             >
               Stake
+            </button>
+
+            <button
+              type="button"
+              onClick={async () => {
+                let res = await unstakeToken();
+              }}
+            >
+              Unstake
             </button>
           </>
         ) : (
